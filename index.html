@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>FHIR Json Reader</title>
+    <script src="test.js"></script>
+    <script src="main.js"></script>
+    <script src="initialize.js"></script>
+    <script src="CheckBoxPanel.js"></script>
+    <script src="SearchFunctionality.js"></script>
+    <script src="utilities.js"></script>
+    <script src="tabs.js"></script>
+    <script src="fullscreenTable.js"></script>
+    <script src="DomainsInfoConfig.js"></script>
+
+    <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="tabs.css" />
+    <link rel="stylesheet" href="modal.css" />
+    <link rel="stylesheet" href="settings.css" />
+    <link rel="stylesheet" href="switch.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+  </head>
+  <body onload="onload()">
+    <div id="mainPage">
+      <h3 id="title">FHIR Result Simplifier</h3>
+      <table id="mainTable">
+        <tr>
+          <td></td>
+          <td rowspan="5">
+            <div id="tabsSection">
+              <div class="tab">
+                <button
+                  class="tablinks"
+                  onclick="openTab(event, 'JSON')"
+                >
+                  JSON
+                </button>
+                <button class="tablinks" onclick="openTab(event, 'Fields')">
+                  Fields
+                </button>
+                <button class="tablinks" id="defaultOpen" onclick="openTab(event, 'Settings')">
+                  Settings
+                </button>
+              </div>
+              <div id="Fields" class="tabcontent">
+                <input
+                  type="checkbox"
+                  id="selectUnselect"
+                  onclick="selectUnselectCheckboxClick(this)"
+                />
+                <label for="selectUnselect" id="labelSelectUnselect"
+                  >Select / Unselect All</label
+                >
+                <table id="fieldsTable"></table>
+              </div>
+              <div id="JSON" class="tabcontent">
+                <textarea
+                  id="jsonInput"
+                  spellcheck="false"
+                  rows="29"
+                  cols="29"
+                ></textarea>
+                <button onclick="main()">Load JSON</button>
+              </div>
+              <div id="Settings" class="tabcontent">
+                <label for="dname">Domain Name</label>
+                <select id="dname" onchange="dropDownSelect()">
+                  <option value="-1"></option>
+                </select>
+                <label for="fdname" class="hide" id="lblFdName">First Domain Name</label>
+                <input
+                  type="text"
+                  id="fdname"
+                  class="settingTxtBx hide"
+                  name="firstDomainName"
+                  placeholder="First Domain Name.."
+                  readonly
+                />
+                <label for="sdname" class="hide" id="lblSdName">Second Domain Name</label>
+                <input
+                  type="text"
+                  id="sdname"
+                  class="settingTxtBx hide"
+                  name="secondDomainName"
+                  placeholder="Second Domain Name.."
+                  readonly
+                />
+                <label for="prefix" class="hide" id="lblPrefix">Prefix</label>
+                <input
+                  type="text"
+                  id="prefix"
+                  class="settingTxtBx hide"
+                  name="prefix"
+                  placeholder="Prefix.."
+                  readonly
+                />
+                <label id="saveLabel">Saved</label>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr id="firstDomainNameRow" class="tableHeadingRow">
+          <td>
+              <label id="firstDomainName" class="domainName"></label>
+              <label id="firstCountLbl" class="domainName" style="margin-left: 10px;"></label>
+              <label id="firstDomainCount" class="labelCount"></label>
+              <label id="totalCountLbl" class="domainName" style="margin-left: 10px;"></label>
+              <label id="totalDomainCount" class="labelCount"></label>
+              
+            <div class="tableControls" id="firstTableControl">
+              <label id="SingleDomainModeonoff" class="right"
+                >Single Domain Mode on/off</label
+              >
+              <label class="switch right">
+                <input
+                  type="checkbox"
+                  id="toggleDomainModeSwitch"
+                  onclick="toggleDomainMode()"
+                />
+                <span class="slider round"></span>
+              </label>
+              <i
+                class="material-icons icon right"
+                onclick="fullScreen(1)"
+                id="firstDomainFullscreenIcon"
+                >fullscreen</i
+              >
+            </div>
+          </td>
+        </tr>
+        <tr id="firstDomainTableRow">
+          <td>
+            <div class="domainSections" id="firstDomainDiv">
+              <table id="firstDomainTable" class="DomainTables"></table>
+            </div>
+          </td>
+        </tr>
+        <tr id="secondDomainNameRow" class="tableHeadingRow">
+          <td>
+            <label id="secondDomainName" class="domainName"></label>
+            <label id="secondCountLbl" class="domainName" style="margin-left: 10px;"></label>
+            <label id="secondDomainCount" class="labelCount"></label>
+            <div class="tableControls" id="secondTableControl">
+              <i
+                class="material-icons icon right"
+                onclick="fullScreen(2)"
+                id="secondDomainFullscreenIcon"
+                >fullscreen</i
+              >
+            </div>
+          </td>
+        </tr>
+        <tr id="secondDomainTableRow">
+          <td>
+            <div class="domainSections" id="secondDomainDiv">
+              <table id="secondDomainTable" class="DomainTables"></table>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- The Modal -->
+    <div id="ModalWindow" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <label style="font-weight: bold;">Details</label>
+        <span class="close">&times;</span>
+        <textarea
+          id="resourceInfo"
+          rows="25"
+          cols="138"
+          spellcheck="false"
+          style="color:rgb(163, 21, 21)"
+        ></textarea>
+      </div>
+    </div>
+  </body>
+</html>
