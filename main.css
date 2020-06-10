@@ -92,4 +92,11 @@ div.tableControls{
   padding: 0px;
 }
 
+input.searchBox{
+  display: none;
+  width: 90px;
+  margin-left: 3px;
+  margin-right: 1px;
+}
+
 

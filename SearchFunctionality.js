@@ -31,7 +31,9 @@ function populateDomainTable(searchCriteria, tableName, domainData) {
 
   for (i in searchCriteria) {
     var cell = headerRow.insertCell(i);
-    cell.innerHTML = searchCriteria[i].toUpperCase();
+    cell.innerHTML = searchCriteria[i].toUpperCase() +
+    "<input class=\"searchBox\" type=\"text\" id=\"" + i + "|" + tableName +"\" onkeyup=\"filterColumn(this)\" placeholder=\"Search...\">" + 
+    "<i style=\"font-size:16px; margin-left: 2px;\" class=\"material-icons\" id=\"" + i +"\" onclick=\"showHideSearchBox(this, " + tableName + ")\">search</i>";
   }
 
   for (i in domainData) {
@@ -93,4 +95,15 @@ function showRowDetails(id) {
       modal.style.display = "none";
     }
   };
+}
+
+function showHideSearchBox(iconObj, searchBox){
+  var searchBoxId = iconObj.id + "|" + searchBox.id;
+  var input = document.getElementById(searchBoxId);
+  if(input.style.display == "none"){
+    input.style.display = "inline";
+  }
+  else{
+    input.style.display = "none";
+  }
 }
